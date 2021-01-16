@@ -1,0 +1,30 @@
+spring:
+  web:
+
+    resources:
+      static-locations: classpath:/static
+  mvc:
+    view:
+      suffix: .html
+      prefix: pages/
+    static-path-pattern: /**
+  datasource:
+    url: jdbc:mysql://146.56.226.103/filmtube?characterEncoding=UTF-8
+    username: root
+    password: 1023
+    type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  gson:
+    date-format: yyyy-MM-dd
+server:
+  address: 0.0.0.0
+
+filmtube:
+  media:
+    location: D:/nginx-1.18.0/media/video
+#logging:
+#  level:
+#    root: debug

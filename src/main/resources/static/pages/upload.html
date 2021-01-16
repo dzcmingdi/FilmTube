@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>上传</title>
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+</head>
+<body>
+<div id="upload">
+    <!--    <v-alert-->
+    <!--            type="warning"-->
+    <!--            color="orange"-->
+    <!--    >已过滤非视频资源（视频资源包括*.mp4,*.mkv）</v-alert>-->
+
+
+    <v-container>
+        <v-row>
+            <v-col lg="6">
+                <v-file-input placeholder="请选择文件" id="uploadInput" v-on:change="uploadInputOnChange"
+                              outlined dense multiple></v-file-input>
+            </v-col>
+            <v-spacer></v-spacer>
+        </v-row>
+        <v-row>
+            <v-col lg="5">
+                <v-alert
+                        color="orange"
+                        type="warning"
+                        v-if="selectedFilesHint"
+                >
+                    已过滤非视频资源（视频资源只支持*.mp4）
+                </v-alert>
+            </v-col>
+            <v-spacer></v-spacer>
+        </v-row>
+        <v-row>
+            <v-col lg="2">
+                <v-btn
+                        color="blue-grey"
+                        class="ma-2 white--text"
+                        v-on:click="addFilesToProcessingList"
+                        :disabled="addFilesButtonDisabled"
+                >
+                    添加到加工队列
+                    <v-icon>
+                        mdi-plus
+                    </v-icon>
+                </v-btn>
+            </v-col>
+        </v-row>
+        <v-row>
+            <v-col lg="8">
+                <v-list>
+                    <v-subheader>文件列表</v-subheader>
+                    <v-list-item-group
+                            color="primary"
+                    >
+                        <v-list-item
+                                v-for="(file,i) in processingList"
+                                :key="i"
+                        >
+
+                            <v-list-item-content>
+                                <v-list-item-title v-text="file.name"></v-list-item-title>
+                            </v-list-item-content>
+
+                            <v-list-item-action>
+                                <!-- 1.加工入口 传入number -->
+                                <v-btn v-on:click="uploadVideoInfo(i,file.type)">加工</v-btn>
+                            </v-list-item-action>
+                        </v-list-item>
+                    </v-list-item-group>
+                </v-list>
+            </v-col>
+
+        </v-row>
+        <v-row>
+            <v-col>
+                <v-simple-table>
+                    <template>
+                        <thead>
+                        <tr>
+                            <th class="text-left">文件名</th>
+                            <th class="text-left">进度</th>
+                        </tr>
+                        </thead>
+                        <tbody align="center">
+                        <tr v-for="(file,i) in preparedFileList"
+                            :key="i">
+                            <td>{{file.name}}</td>
+                            <td>
+                                <v-progress-circular v-if="file.complete === 0"
+                                                     :value="file.progress"></v-progress-circular>
+
+                                <!--                                <v-btn v-if="file.progress === 100 && file.complete === 1"-->
+                                <!--                                       v-on:click="uploadVideoInfo(file.id)" > </v-btn>-->
+
+                                <v-icon v-if="file.progress === 100 && file.complete === 1"
+                                        right
+                                >
+                                    mdi-checkbox-marked-circle
+                                </v-icon>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </template>
+                </v-simple-table>
+            </v-col>
+
+
+        </v-row>
+
+        <v-row>
+
+            <v-col lg="2">
+                <v-btn
+                        color="blue-grey"
+                        class="ma-2 white--text"
+                        v-on:click="uploadFilesToServer"
+
+                >
+                    开始上传
+                    <v-icon
+                            right
+                            class="mdi-cloud-upload"
+                    >
+                        mdi-cloud-upload
+                    </v-icon>
+                </v-btn>
+            </v-col>
+            <v-spacer></v-spacer>
+        </v-row>
+
+
+    </v-container>
+    <!-- number: 该元素在加工队列中的index -->
+    <video-dialog data-app="true" @dialog-show="dialogShow" v-bind:show="uploadVideoDialogShow"
+                  v-bind:number="number" v-bind:video-type="videoType"></video-dialog>
+
+</div>
+</body>
+
+<script src="/js/upload.js"></script>
+
+</html>
