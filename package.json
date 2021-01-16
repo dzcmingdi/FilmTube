@@ -1,0 +1,47 @@
+{
+  "name": "filmtube",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "@mdi/font": "^5.8.55",
+    "axios": "^0.21.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "file-loader": "^6.2.0",
+    "jquery": "^3.5.1",
+    "lodash": "^4.17.20",
+    "material-design-icons-iconfont": "^6.1.0",
+    "videojs-iplayer-skin-1": "^1.0.2",
+    "vue": "^2.6.12",
+    "vue-core-video-player": "^0.2.0",
+    "vue-loader": "^15.9.6",
+    "vue-router": "^3.4.9",
+    "vue-template-compiler": "^2.6.12",
+    "vuetify": "^2.4.0",
+    "vuex": "^3.6.0",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0",
+    "webuploader": "^0.1.8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "css-loader": "^5.0.1",
+    "deepmerge": "^4.2.2",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "video.js": "^7.10.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx webpack --config webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
